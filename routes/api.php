@@ -7,6 +7,9 @@ use App\Http\Controllers\PostController;
 use App\Http\Controllers\CommentController;
 use App\Http\Controllers\LikeController;
 use App\Http\Controllers\ExpenseController;
+use App\Http\Controllers\InfooneController;
+use App\Http\Controllers\MeslucrosController;
+use App\Http\Controllers\ClasscorridasController;
 
 /*
 |--------------------------------------------------------------------------
@@ -35,7 +38,19 @@ Route::group(['middleware' => ['auth:sanctum']], function() {
     Route::put('/expenses/{id}', [ExpenseController::class, 'updateExpense']);
 
 
+    Route::post('/infoone', [InfooneController::class, 'createInfoone']);
+    Route::get('/infoone', [InfooneController::class, 'getInfoone']);
+    Route::put('/infoone/{id}', [InfooneController::class, 'update']);
+   
+   
+    Route::post('/meslucros', [MeslucrosController::class, 'createMeslucros']);
+    Route::get('/meslucros', [MeslucrosController::class, 'getMeslucros']);
+    Route::put('/meslucros/{id}', [MeslucrosController::class, 'updateMeslucros']);
 
+
+    Route::post('/classcorridas', [ClasscorridasController::class, 'createClasscorridas']);
+    Route::get('/classcorridas', [ClasscorridasController::class, 'getClasscorridas']);
+    Route::put('/classcorridas/{id}', [ClasscorridasController::class, 'updateClasscorridas']);
 
 
     // User
