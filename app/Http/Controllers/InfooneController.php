@@ -36,12 +36,22 @@ class InfooneController extends Controller
         }
     }
 
-    public function getInfoone()
-    {
-        $infoone = Infoone::where('user_id', Auth::id())->get();
+    public function getInfoone(Request $request)
+{
+    $infoone = Infoone::where('user_id', Auth::id())->get();
+    return response()->json($infoone);
+}
+
+public function checkInfoone(Request $request) {
+    $user = auth()->user();
+    $infoone = Infoone::where('user_id', $user->id)->get();
+
+    if ($infoone->isEmpty()) {
+        return response()->json([]);
+    } else {
         return response()->json($infoone);
     }
-
+}
 
 
     // Função para atualizar um registro existente

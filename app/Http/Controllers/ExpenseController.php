@@ -31,11 +31,15 @@ class ExpenseController extends Controller
         return response()->json(['message' => 'Expenses added successfully', 'totalAmount' => $totalAmount, 'id' => $expense->id], 201);
     }
 
-    public function getExpenses()
+
+
+    public function getExpenses(Request $request)
     {
-        $expenses = Auth::user()->expenses;
+        $expenses = Expense::where('user_id', Auth::id())->get();
         return response()->json($expenses, 200);
     }
+
+
 
     public function updateExpense(Request $request, $id)
     {

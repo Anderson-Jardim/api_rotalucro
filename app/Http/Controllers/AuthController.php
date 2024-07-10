@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Models\User;
+use App\Rules\Contact;
 
 class AuthController extends Controller
 {
@@ -15,7 +16,7 @@ class AuthController extends Controller
         $attrs = $request->validate([
             'name' => 'required|string',
             'username' => 'required|string',
-            'email' => 'required|email|unique:users,email',
+            'contact' => ['required', 'string', 'max:255', new Contact],
             'password' => 'required|min:6|confirmed'
         ]);
 
@@ -23,7 +24,7 @@ class AuthController extends Controller
         $user = User::create([
             'name' => $attrs['name'],
             'username' => $attrs['username'],
-            'email' => $attrs['email'],
+            'contact' => $attrs['contact'],
             'password' => bcrypt($attrs['password'])
         ]);
 
@@ -34,19 +35,12 @@ class AuthController extends Controller
         ], 200);
     }
 
-
-    public function sendDataToAPI(Request $request)
-    {
-        
-    }
-
-
     // login user
     public function login(Request $request)
     {
         //validate fields
         $attrs = $request->validate([
-            'email' => 'required|email',
+            'contact' => 'required|contact',
             'password' => 'required|min:6'
         ]);
 
@@ -86,14 +80,19 @@ class AuthController extends Controller
     public function update(Request $request)
     {
         $attrs = $request->validate([
-            'name' => 'required|string'
+            'name' => 'required|string',
+            'username' => 'required|string',
+            'contact' => ['required', 'string', 'max:255', new Contact],
+            'password' => 'required|min:6|confirmed'
         ]);
 
-        $image = $this->saveImage($request->image, 'profiles');
+        //$image = $this->saveImage($request->image, 'profiles');
 
         auth()->user()->update([
             'name' => $attrs['name'],
-            'image' => $image
+            'username' => $attrs['username'],
+            'contact' => $attrs['contact'],
+            'password' => bcrypt($attrs['password'])
         ]);
 
         return response([
