@@ -17,7 +17,7 @@ return new class extends Migration
             $table->decimal('valor_gasolina', 8, 2);
             $table->integer('dias_trab');
             $table->integer('qtd_corridas');
-            $table->double('km_litro');
+            $table->decimal('km_litro', 8, 2);
             $table->timestamps();
 
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
