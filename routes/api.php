@@ -23,7 +23,7 @@ use App\Http\Controllers\ClasscorridasController;
 */
 // Public routes
 Route::post('/register', [AuthController::class, 'register']);
-
+Route::post('/login', [AuthController::class, 'login']);
 
 
    
@@ -73,6 +73,6 @@ Route::group(['middleware' => ['auth:sanctum']], function() {
 
     // Like
     Route::post('/posts/{id}/likes', [LikeController::class, 'likeOrUnlike']); // like or dislike back a post
-    Route::post('/login', [AuthController::class, 'login']);
+    
     
 });

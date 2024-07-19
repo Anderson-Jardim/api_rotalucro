@@ -40,7 +40,7 @@ class AuthController extends Controller
     {
         //validate fields
         $attrs = $request->validate([
-            'contact' => 'required|contact',
+            'contact' => ['required', new Contact],
             'password' => 'required|min:6'
         ]);
 
