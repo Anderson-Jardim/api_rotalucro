@@ -10,6 +10,7 @@ use App\Http\Controllers\ExpenseController;
 use App\Http\Controllers\InfooneController;
 use App\Http\Controllers\MeslucrosController;
 use App\Http\Controllers\ClasscorridasController;
+use App\Http\Controllers\LerCorridaController;
 
 /*
 |--------------------------------------------------------------------------
@@ -26,11 +27,11 @@ Route::post('/register', [AuthController::class, 'register']);
 Route::post('/login', [AuthController::class, 'login']);
 
 
-   
 
 // Protected Routes
 Route::group(['middleware' => ['auth:sanctum']], function() {
-
+    
+    Route::post('/lercorrida', [LerCorridaController::class, 'store']);
 
 
     Route::post('/expenses', [ExpenseController::class, 'addExpenses']);
@@ -53,6 +54,8 @@ Route::group(['middleware' => ['auth:sanctum']], function() {
     Route::put('/classcorridas/{id}', [ClasscorridasController::class, 'updateClasscorridas']);
 
 
+    
+    
     // User
     Route::get('/user', [AuthController::class, 'user']);
     Route::put('/user', [AuthController::class, 'update']);
