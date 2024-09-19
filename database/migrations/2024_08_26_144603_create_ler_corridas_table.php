@@ -14,7 +14,10 @@ return new class extends Migration
         Schema::create('ler_corridas', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('user_id');
-            $table->decimal('value', 10, 2);
+            $table->decimal('total_distance', 8, 2); 
+            $table->decimal('valor', 10, 2);
+            $table->decimal('valor_por_km', 8, 2);
+            $table->string('tipo_corrida');  
             $table->timestamps();
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
         });

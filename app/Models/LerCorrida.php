@@ -11,7 +11,10 @@ class LerCorrida extends Model
 
     protected $fillable = [
         'user_id', 
-        'value',
+        'total_distance',
+        'valor',
+        'valor_por_km',
+         'tipo_corrida',  
         
 
     ];

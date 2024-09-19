@@ -13,13 +13,18 @@ class LerCorridaController extends Controller
     {
         try{
         $lercorrida = $request->validate([
-            'value' => 'required|numeric',
-            
+            'total_distance' => 'required|numeric',
+            'valor'  => 'required|numeric',
+            'valor_por_km'    => 'required|numeric',
+           'tipo_corrida'   => 'required|string',  
         ]);
 
         $createlercorrida = LerCorrida::create([
             'user_id' => Auth::id(),
-            'value' =>  $lercorrida['value'],
+            'total_distance' =>  $lercorrida['total_distance'],
+            'valor' =>  $lercorrida['valor'],
+            'valor_por_km' =>  $lercorrida['valor_por_km'],
+             'tipo_corrida' =>  $lercorrida['tipo_corrida'],  
         ]);
 
         /* CapturedData::create($validatedData); */
