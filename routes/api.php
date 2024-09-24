@@ -32,6 +32,7 @@ Route::post('/login', [AuthController::class, 'login']);
 Route::group(['middleware' => ['auth:sanctum']], function() {
     
     Route::post('/lercorrida', [LerCorridaController::class, 'store']);
+    Route::get('/lercorrida', [LerCorridaController::class, 'index']);
 
 
     Route::post('/expenses', [ExpenseController::class, 'addExpenses']);

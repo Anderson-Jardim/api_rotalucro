@@ -16,6 +16,7 @@ return new class extends Migration
             $table->unsignedBigInteger('user_id');
             $table->decimal('total_distance', 8, 2); 
             $table->decimal('valor', 10, 2);
+            $table->decimal('lucro', 10, 2);
             $table->decimal('valor_por_km', 8, 2);
             $table->string('tipo_corrida');  
             $table->timestamps();

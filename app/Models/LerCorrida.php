@@ -13,6 +13,7 @@ class LerCorrida extends Model
         'user_id', 
         'total_distance',
         'valor',
+        'lucro',
         'valor_por_km',
          'tipo_corrida',  
         
