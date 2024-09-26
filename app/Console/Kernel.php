@@ -12,7 +12,10 @@ class Kernel extends ConsoleKernel
      */
     protected function schedule(Schedule $schedule): void
     {
-        // $schedule->command('inspire')->hourly();
+          // Resetar o lucro no início de cada mês
+    $schedule->call(function () {
+        \App\Models\MonthlyEarnings::query()->update(['total_lucro' => 0]);
+    })->monthlyOn(1, '00:00'); // Executa no dia 1 de cada mês à meia-noite
     }
 
     /**

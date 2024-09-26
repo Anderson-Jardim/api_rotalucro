@@ -11,6 +11,7 @@ use App\Http\Controllers\InfooneController;
 use App\Http\Controllers\MeslucrosController;
 use App\Http\Controllers\ClasscorridasController;
 use App\Http\Controllers\LerCorridaController;
+use App\Http\Controllers\MonthlyEarningsController;
 
 /*
 |--------------------------------------------------------------------------
@@ -33,6 +34,10 @@ Route::group(['middleware' => ['auth:sanctum']], function() {
     
     Route::post('/lercorrida', [LerCorridaController::class, 'store']);
     Route::get('/lercorrida', [LerCorridaController::class, 'index']);
+
+    Route::post('/reset-monthly-earnings', [MonthlyEarningsController::class, 'resetMonthlyEarnings']);
+    Route::post('/monthly-earnings', [MonthlyEarningsController::class, 'store']);
+    Route::get('/monthly-earnings', [MonthlyEarningsController::class, 'index']);
 
 
     Route::post('/expenses', [ExpenseController::class, 'addExpenses']);
