@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\MonthlyEarnings;
+use App\Models\UpdateTotalLucroSaida;
 use Illuminate\Support\Facades\Auth;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
@@ -56,6 +57,8 @@ class MonthlyEarningsController extends Controller
             // Validar os dados recebidos
             $validatedData = $request->validate([
                 'total_lucro' => 'required|numeric',
+                'total_gasto' => 'required|numeric',
+                'valor_corrida' => 'required|numeric',
             ]);
     
             // Pegar o ID do usuário autenticado
@@ -72,12 +75,16 @@ class MonthlyEarningsController extends Controller
             if ($monthlyEarnings) {
                 // Se o registro já existir, incrementar o total_lucro
                 $monthlyEarnings->total_lucro += $validatedData['total_lucro'];
+                $monthlyEarnings->total_gasto += $validatedData['total_gasto'];
+                $monthlyEarnings->valor_corrida  += $validatedData['valor_corrida'];
                 $monthlyEarnings->save();
             } else {
                 // Se não existir, criar um novo registro
                 MonthlyEarnings::create([
                     'user_id' => $userId,
                     'total_lucro' => $validatedData['total_lucro'],
+                    'total_gasto' => $validatedData['total_gasto'],
+                    'valor_corrida' => $validatedData['valor_corrida'],
                 ]);
             }
     
@@ -87,5 +94,28 @@ class MonthlyEarningsController extends Controller
             return response()->json(['message' => 'Failed to insert monthly earnings. Please try again later.'], 500);
         }
     }
+
+    public function subtractFromEarnings($tipo, $valor)
+{
+    $userId = Auth::id();
+    $earnings = MonthlyEarnings::where('user_id', $userId)->first();
+
+    if ($earnings) {
+        if ($tipo === 'Gasto') {
+            $earnings->total_gasto -= $valor;
+        } elseif ($tipo === 'Lucro') {
+            $earnings->total_lucro -= $valor;
+        }
+        // Subtrai do valor_corrida
+        $earnings->valor_corrida -= $valor;
+        
+        $earnings->save();
+
+        return true;
+    }
+
+    return false;
+}
+
     
 }

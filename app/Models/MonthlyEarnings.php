@@ -12,6 +12,8 @@ class MonthlyEarnings extends Model
     protected $fillable = [
         'user_id', 
         'total_lucro',
+        'total_gasto',
+        'valor_corrida',
     ];
 
     public function user()

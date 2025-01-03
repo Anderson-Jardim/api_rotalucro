@@ -96,7 +96,7 @@ class AuthController extends Controller
         ]);
 
         return response([
-            'message' => 'User updated.',
+            'message' => 'Dados atualizados',
             'user' => auth()->user()
         ], 200);
     }

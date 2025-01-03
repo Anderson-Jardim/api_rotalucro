@@ -3,17 +3,17 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Models\LerCorrida;
+use App\Models\LerCorridaCard;
 use Illuminate\Support\Facades\Auth;
 
 
-class LerCorridaController extends Controller
+class LerCorridaCardController extends Controller
 {
 
     public function index()
     
         {
-            $lercorr = LerCorrida::where('user_id', Auth::id())
+            $lercorr = LerCorridaCard::where('user_id', Auth::id())
             ->orderBy('created_at', 'desc')
             ->get()
             ->map(function($lercorr) {
@@ -51,7 +51,7 @@ class LerCorridaController extends Controller
            'tipo_corrida'   => 'required|string',  
         ]);
 
-        $createlercorrida = LerCorrida::create([
+        $createlercorrida = LerCorridaCard::create([
             'user_id' => Auth::id(),
             'total_distance' =>  $lercorrida['total_distance'],
             'valor' =>  $lercorrida['valor'],

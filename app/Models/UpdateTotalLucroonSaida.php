@@ -5,21 +5,16 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class LerCorrida extends Model
+class UpdateTotalLucroonSaida extends Model
 {
     use HasFactory;
-
     protected $fillable = [
         'user_id', 
-        'total_distance',
-        'valor',
-        'lucro',
-        'total_custo',
-        'valor_por_km',
-         'tipo_corrida',  
-        
-
+        'nome_saida',
+        'saida_lucro',
+        'tipo',
     ];
+
     public function user()
     {
         return $this->belongsTo(User::class);

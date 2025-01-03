@@ -12,18 +12,18 @@ class InfooneController extends Controller
     {
         try {
             $infoone = $request->validate([
-                'valor_gasolina' => 'required|numeric|min:0',
+                /* 'valor_gasolina' => 'required|numeric|min:0', */
                 'dias_trab' => 'required|numeric|min:0',
                 'qtd_corridas' => 'required|numeric|min:0',
-                'km_litro' => 'required|numeric|min:0',
+                /* 'km_litro' => 'required|numeric|min:0', */
             ]);
 
             $createinfoone = Infoone::create([
                 'user_id' => Auth::id(),
-                'valor_gasolina' => $infoone['valor_gasolina'],
+                /* 'valor_gasolina' => $infoone['valor_gasolina'], */
                 'dias_trab' => $infoone['dias_trab'],
                 'qtd_corridas' => $infoone['qtd_corridas'],
-                'km_litro' => $infoone['km_litro'],
+                /* 'km_litro' => $infoone['km_litro'], */
             ]);
 
             return response()->json(['message' => 'Infoone added successfully']);
@@ -58,10 +58,10 @@ public function checkInfoone(Request $request) {
     public function update(Request $request, $id)
     {
         $request->validate([
-            'valor_gasolina' => 'required|numeric|min:0',
+            /* 'valor_gasolina' => 'required|numeric|min:0', */
             'dias_trab' => 'required|numeric|min:0',
             'qtd_corridas' => 'required|numeric|min:0',
-            'km_litro' => 'required|numeric|min:0',
+            /* 'km_litro' => 'required|numeric|min:0', */
         ]);
 
         $infoone = Infoone::find($id);

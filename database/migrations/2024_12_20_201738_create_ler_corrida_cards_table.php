@@ -11,7 +11,7 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('ler_corridas', function (Blueprint $table) {
+        Schema::create('ler_corrida_cards', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('user_id');
             $table->decimal('total_distance', 8, 2); 
@@ -30,6 +30,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('ler_corridas');
+        Schema::dropIfExists('ler_corrida_cards');
     }
 };

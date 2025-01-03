@@ -14,10 +14,10 @@ return new class extends Migration
         Schema::create('infoones', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('user_id');
-            $table->decimal('valor_gasolina', 8, 2);
+            /* $table->decimal('valor_gasolina', 8, 2); */
             $table->integer('dias_trab');
             $table->integer('qtd_corridas');
-            $table->decimal('km_litro', 8, 2);
+            /* $table->decimal('km_litro', 8, 2); */
             $table->timestamps();
 
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');

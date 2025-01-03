@@ -14,7 +14,9 @@ return new class extends Migration
         Schema::create('monthly_earnings', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('user_id');
-            $table->decimal('total_lucro', 10, 2)->default(0); // Total de lucro do mês
+            $table->decimal('total_lucro', 10, 2)->default(0); 
+            $table->decimal('total_gasto', 10, 2)->default(0); 
+            $table->decimal('valor_corrida', 10, 2)->default(0); 
             $table->timestamps(); // Para registrar o mês e ano automaticamente
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
         });

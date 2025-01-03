@@ -11,10 +11,10 @@ class Infoone extends Model
 
     protected $fillable = [
         'user_id',
-        'valor_gasolina',
+        /* 'valor_gasolina', */
         'dias_trab',
         'qtd_corridas',
-        'km_litro'
+        /* 'km_litro' */
 
     ];
     public function user()
