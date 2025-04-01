@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Models\User;
 use App\Rules\Contact;
+use App\Models\valorKM;
 
 class AuthController extends Controller
 {
@@ -28,11 +29,21 @@ class AuthController extends Controller
             'password' => bcrypt($attrs['password'])
         ]);
 
+        // Criação do registro na tabela 'valor_km' com valores padrão para "ruim" e "bom"
+        valorKM::create([
+            'user_id' => $user->id,   // Atribui o ID do usuário
+            'ruim' => 0.5,            // Valor padrão para "ruim"
+            'bom' => 0.95,            // Valor padrão para "bom"
+        ]);
+        
         //return user & token in response
         return response([
             'user' => $user,
             'token' => $user->createToken('secret')->plainTextToken
         ], 200);
+        
+      
+        
     }
 
     // login user

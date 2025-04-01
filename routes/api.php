@@ -14,6 +14,7 @@ use App\Http\Controllers\LerCorridaController;
 use App\Http\Controllers\LerCorridaCardController;
 use App\Http\Controllers\MonthlyEarningsController;
 use App\Http\Controllers\UpdateTotalLucroonSaidaController;
+use App\Http\Controllers\ValorKMController;
 
 /*
 |--------------------------------------------------------------------------
@@ -70,6 +71,9 @@ Route::group(['middleware' => ['auth:sanctum']], function() {
     Route::post('/classcorridas', [ClasscorridasController::class, 'createClasscorridas']);
     Route::get('/classcorridas', [ClasscorridasController::class, 'getClasscorridas']);
     Route::put('/classcorridas/{id}', [ClasscorridasController::class, 'updateClasscorridas']);
+
+    Route::get('/valorKM', [ValorKMController::class, 'getValorKM']);
+    Route::put('/valorKM/{id}', [ValorKMController::class, 'updateValorKM']);
 
 
     
