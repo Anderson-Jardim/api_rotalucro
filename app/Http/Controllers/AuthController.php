@@ -8,6 +8,11 @@ use App\Models\User;
 use App\Rules\Contact;
 use App\Models\valorKM;
 
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Mail;
+use Illuminate\Support\Str;
+use App\Models\PasswordReset;
+
 class AuthController extends Controller
 {
     //Register user
@@ -17,7 +22,8 @@ class AuthController extends Controller
         $attrs = $request->validate([
             'name' => 'required|string',
             'username' => 'required|string',
-            'contact' => ['required', 'string', 'max:255', new Contact],
+            /* 'contact' => ['required', 'string', 'max:255', new Contact], */
+            'contact' => ['required', 'string', 'email', 'max:50'],
             'password' => 'required|min:6|confirmed'
         ]);
 
@@ -111,5 +117,66 @@ class AuthController extends Controller
             'user' => auth()->user()
         ], 200);
     }
+
+    public function esqueciminhaSenha(Request $request)
+{
+    $request->validate([
+        'contact' => 'required',
+    ]);
+
+    $user = User::where('contact', $request->contact)->first();
+    if (!$user || !$user->contact) {
+        return response()->json(['message' => 'Usuário não encontrado ou sem e-mail cadastrado.'], 404);
+    }
+
+    // Gera um token aleatório
+    $token = Str::random(6); // ou Str::uuid();
+
+    // Salva no banco (hash para segurança)
+    PasswordReset::updateOrCreate(
+        ['contact' => $user->contact],
+        ['token' => Hash::make($token), 'created_at' => now()]
+    );
+
+    // Envia o token por e-mail
+    Mail::send('emails.reset', ['token' => $token], function ($message) use ($user) {
+        $message->to($user->contact);
+        $message->subject('Código para Redefinir Senha');
+    });
+
+    return response()->json(['message' => 'Token enviado por e-mail com sucesso.']);
+}
+
+
+    // Resetar senha
+public function redefinirSenha(Request $request)
+{
+    $request->validate([
+        'contact' => 'required',
+        'password' => 'required|min:6|confirmed',
+        'token' => 'required'
+    ]);
+
+    // Busca o usuário pelo contato
+    $user = User::where('contact', $request->contact)->first();
+    if (!$user) {
+        return response(['message' => 'Contato não encontrado'], 404);
+    }
+
+    // Verifica se o token é válido
+    $reset = PasswordReset::where('contact', $user->contact)->first();
+    if (!$reset || !Hash::check($request->token, $reset->token)) {
+        return response(['message' => 'Token inválido'], 400);
+    }
+
+    // Atualiza a senha do usuário
+    $user->update(['password' => bcrypt($request->password)]);
+
+    // Remove o token de redefinição usado
+    $reset->delete();
+
+    return response(['message' => 'Senha redefinida com sucesso'], 200);
+}
+
 
 }

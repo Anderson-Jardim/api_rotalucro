@@ -34,6 +34,9 @@ Route::get('/images/{filename}', function ($filename) {
 });
 
 
+Route::post('/esqueci-minha-Senha', [AuthController::class, 'esqueciminhaSenha']);
+Route::post('/redefinir-Senha', [AuthController::class, 'redefinirSenha']);
+
 // Protected Routes
 Route::group(['middleware' => ['auth:sanctum']], function() {
     
@@ -82,7 +85,6 @@ Route::group(['middleware' => ['auth:sanctum']], function() {
     Route::get('/user', [AuthController::class, 'user']);
     Route::put('/user', [AuthController::class, 'update']);
     Route::post('/logout', [AuthController::class, 'logout']);
-
 
     
 
